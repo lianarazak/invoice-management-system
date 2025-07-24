@@ -1,0 +1,92 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\InvoiceLine;
+use App\Models\Line;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
+
+class InvoiceLineController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $invoiceLines = InvoiceLine::latest()->paginate(10);
+
+        return Inertia::render('InvoiceLine/Index', [
+            'invoiceLines' => $invoiceLines,
+        ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'customer_id' => 'required|exists:customers,id',
+            'line_items' => 'required|array',
+            'line_items.*.product_name' => 'required',
+            'line_items.*.quantity' => 'required|integer|min:1',
+            'line_items.*.price' => 'required|numeric|min:0'
+        ]);
+
+        $invoice = InvoiceLine::create([
+            'customer_id' => $data['customer_id'],
+            'total' => 0
+        ]);
+
+        $total = 0;
+        foreach ($data['line_items'] as $item) {
+            $total += $item['quantity'] * $item['price'];
+            $invoice->lineItems()->create($item);
+        }
+
+        $invoice->update(['total' => $total]);
+
+        return $invoice->load('lineItems');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+}

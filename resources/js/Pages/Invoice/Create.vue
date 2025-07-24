@@ -104,6 +104,23 @@
                             </div>
                         </div>
 
+                        <div class="space-y-6">
+                            <div>
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1"
+                                >
+                                    Total Price (RM)
+                                </label>
+                                <input
+                                    :value="totalPrice"
+                                    type="number"
+                                    step="any"
+                                    class="w-full border-gray-200 bg-gray-100 rounded-md shadow-sm"
+                                    readonly
+                                />
+                            </div>
+                        </div>
+
                         <div class="flex items-center gap-4 mt-6">
                             <button
                                 type="button"
@@ -131,6 +148,7 @@ import { ref, onMounted } from "vue";
 import axios from "axios";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, router } from "@inertiajs/vue3";
+import { computed } from "vue";
 
 const customers = ref([]);
 const form = ref({
@@ -168,11 +186,17 @@ const submitInvoice = async () => {
     }
 };
 
+const totalPrice = computed(() => {
+    return form.value.line_items.reduce((sum, item) => {
+        const qty = parseFloat(item.quantity) || 0;
+        const price = parseFloat(item.price_per_unit) || 0;
+        return sum + qty * price;
+    }, 0);
+});
+
 onMounted(async () => {
     const res = await axios.get("/api/customers");
 
     customers.value = res.data.data;
-
-    console.log("customers", customers.value);
 });
 </script>

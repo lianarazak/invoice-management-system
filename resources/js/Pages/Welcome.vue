@@ -30,6 +30,7 @@ defineProps({
             class="text-5xl font-bold mb-8 text-gray-800 dark:text-white text-center"
         >
             Invoice Management System
+            <!-- Laravel v{{ laravelVersion }} (PHP v{{phpVersion}}) -->
         </h1>
 
         <!-- Buttons -->

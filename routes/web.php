@@ -17,20 +17,9 @@ use App\Http\Controllers\InvoiceController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Route::get('/dashboard', fn() => Inertia::render('Dashboard'))->middleware('auth');
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
-// Route::get('/customer', function () {
-//     return Inertia::render('Customer');
-// })->middleware(['auth', 'verified'])->name('customer');
-
-// Route::middleware(['auth', 'verified'])->group(function () {
-//     Route::get('/customers', function () {
-//         return Inertia::render('Customer/Index');
-//     })->name('customer');
-// });
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('customers', CustomerController::class);
@@ -47,10 +36,6 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
-
-// Route::get('/dashboard', function () {
-//     return Inertia::render('Dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

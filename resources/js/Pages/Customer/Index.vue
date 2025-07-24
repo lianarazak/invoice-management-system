@@ -4,20 +4,30 @@
 
     <AuthenticatedLayout>
         <template #header>
-            <!-- <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Customer
-            </h2> -->
-            <Link
-                href="/customers/create"
-                class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-            >
-                + Create Customer
-            </Link>
+            <div class="flex items-center justify-between">
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    Invoice Management System
+                </h2>
+            </div>
         </template>
+
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2
+                                class="font-semibold text-xl text-gray-800 leading-tight"
+                            >
+                                Customer
+                            </h2>
+                            <Link
+                                href="/customers/create"
+                                class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                            >
+                                + Create Customer
+                            </Link>
+                        </div>
                         <table class="w-full table-auto border border-gray-200">
                             <thead>
                                 <tr class="bg-gray-100 text-left">
@@ -25,7 +35,6 @@
                                     <th class="p-2 border">Name</th>
                                     <th class="p-2 border">Email</th>
                                     <th class="p-2 border">Phone</th>
-                                    <th class="p-2 border">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -42,11 +51,6 @@
                                     </td>
                                     <td class="p-2 border">
                                         {{ customers.phone }}
-                                    </td>
-                                    <td class="p-2 border">
-                                        <span class="text-gray-400 italic"
-                                            >Coming soon</span
-                                        >
                                     </td>
                                 </tr>
                             </tbody>
@@ -80,44 +84,14 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900">
-                    </div>
-                </div>
-            </div>
-        </div> -->
     </AuthenticatedLayout>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import axios from "axios";
-import GuestLayout from "@/Layouts/GuestLayout.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, Link } from "@inertiajs/vue3";
 
 defineProps({
     customers: Object,
 });
-// const customers = ref([]);
-// const form = ref({
-//     customer_id: "",
-//     line_items: [{ product_name: "", quantity: 1, price: 0 }],
-// });
-
-// const addLineItem = () => {
-//     form.value.line_items.push({ product_name: "", quantity: 1, price: 0 });
-// };
-
-// const submitCustomer = async () => {
-//     await axios.post("/api/invoices", form.value);
-//     alert("Invoice created!");
-// };
-
-// onMounted(async () => {
-//     const res = await axios.get("/api/customers");
-//     customers.value = res.data.data;
-// });
 </script>

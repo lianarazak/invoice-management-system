@@ -13,7 +13,6 @@
             <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white p-8 rounded-lg shadow">
                     <form @submit.prevent="submitInvoice" class="space-y-6">
-                        <!-- Customer dropdown -->
                         <div>
                             <label
                                 class="block text-sm font-medium text-gray-700 mb-1"
@@ -38,7 +37,6 @@
                             </select>
                         </div>
 
-                        <!-- Line Items -->
                         <div class="space-y-6">
                             <div
                                 v-for="(item, index) in form.line_items"
@@ -106,7 +104,6 @@
                             </div>
                         </div>
 
-                        <!-- Buttons -->
                         <div class="flex items-center gap-4 mt-6">
                             <button
                                 type="button"
